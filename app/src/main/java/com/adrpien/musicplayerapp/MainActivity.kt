@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         // Setting bottomNaviationMenu
         binding.bottomNavigationMenu.setupWithNavController(findNavController(R.id.fragmentContainerView))
+
     }
 
 
