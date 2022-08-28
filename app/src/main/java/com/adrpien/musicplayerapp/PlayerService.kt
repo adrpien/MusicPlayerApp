@@ -8,12 +8,16 @@ import android.media.MediaPlayer
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.adrpien.musicplayerapp.App.Companion.PLAYER_CHANNEL
+import java.util.*
+import kotlin.concurrent.timerTask
 
 class PlayerService: Service() {
 
+    var songDuration: Long = 0
+
     private val intentRequestCode: Int = 0
     private lateinit var mediaPlayer: MediaPlayer
-    private var isPlaying: Boolean = false
+    var isPlaying: Boolean = false
 
     override fun onBind(intent: Intent?): IBinder? {
        return null
@@ -21,6 +25,7 @@ class PlayerService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
+        // Creating pending intent for notification
         if (!isPlaying) {
             // Creating pending intent
             val intent = Intent(this, MainActivity::class.java)
@@ -44,6 +49,8 @@ class PlayerService: Service() {
             mediaPlayer = MediaPlayer.create(this, R.raw.taco_hemingway_europa)
             mediaPlayer.start()
             isPlaying = true
+            songDuration = mediaPlayer.duration.toLong()
+
 
             // Starting Service
             startForeground(0, notification)

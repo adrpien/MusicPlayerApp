@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="homeFragment" />
-    <item android:title="playerFragment" />
-    <item android:title="songListFragment" />
+    <item android:title="homeFragment"
+        android:id="@+id/homeFragment"/>
+    <item android:title="playerFragment"
+        android:id="@+id/playerFragment"/>
+    <item android:title="songListFragment"
+        android:id="@+id/songListFragment"/>
 </menu>

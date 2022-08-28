@@ -21,7 +21,7 @@ class App: Application() {
             // Creating notification channel
             val playerServiceChannel = NotificationChannel(
                 PLAYER_CHANNEL,
-                "",
+                "Player channel",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
 
