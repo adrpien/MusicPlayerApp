@@ -1,15 +1,19 @@
 package com.adrpien.musicplayerapp
 
-import android.app.Notification
+import android.R.id.closeButton
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
+import android.widget.RemoteViews
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.adrpien.musicplayerapp.App.Companion.PLAYER_CHANNEL
-import java.util.*
-import kotlin.concurrent.timerTask
+
 
 class PlayerService: Service() {
 
@@ -36,13 +40,48 @@ class PlayerService: Service() {
                 PendingIntent.FLAG_IMMUTABLE
             )
 
+//            val backIntent = Intent(this, PlayerBroadcastReceiver::class.java)
+//            backIntent.setAction(getString(R.string.back_action))
+//            backIntent.putExtra(getString(R.string.back_intent_extra_id), 0)
+//            val backPendingIntent = PendingIntent.getBroadcast(this, 0, backIntent, PendingIntent.FLAG_IMMUTABLE)
+//
+//            val nextIntent = Intent(this, PlayerBroadcastReceiver::class.java)
+//            nextIntent.setAction(getString(R.string.next_action))
+//            nextIntent.putExtra(getString(R.string.next_intent_extra_id), 0)
+//            val nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_IMMUTABLE)
+//
+//            val playIntent = Intent(this, PlayerBroadcastReceiver::class.java)
+//            playIntent.setAction(getString(R.string.play_action))
+//            playIntent.putExtra(getString(R.string.play_intent_extra_id), 0)
+//            val playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, PendingIntent.FLAG_IMMUTABLE)
+
+
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            val playIntent = Intent("play")
+            playIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            val playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, PendingIntent.FLAG_IMMUTABLE)
+
+            val playerNotificationLayout = RemoteViews(packageName, R.layout.player_small_notification)
+            val playerNotificationLayoutExpanded = RemoteViews(packageName, R.layout.player_large_notification)
+
             // Creating notification for service
-            val notification = NotificationCompat.Builder(this, PLAYER_CHANNEL)
+            val notificationBuilder = NotificationCompat.Builder(this, PLAYER_CHANNEL)
                 .setContentIntent(pendingIntent)
-                .setContentTitle("Music App")
-                .setContentText("Song name")
                 .setSmallIcon(R.drawable.app_notification_icon)
-                .build()
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(playerNotificationLayout)
+//                .setCustomBigContentView(playerNotificationLayoutExpanded)
+//                .setContentTitle("Taco Hemingway")
+//                .setContentText("Europa")
+//                .addAction(R.drawable.play_button, getString(R.string.play), playPendingIntent)
+//                .addAction(R.drawable.next_button, getString(R.string.next), nextPendingIntent)
+//                .addAction(R.drawable.back_button, getString(R.string.back), backPendingIntent)
+
+            playerNotificationLayout.setOnClickPendingIntent(R.id.notificationPlayButton, playPendingIntent)
+
+            val  notification = notificationBuilder.build()
+            notificationManager.notify(1, notification)
 
 
             // Creating media player - what service has to do
@@ -53,7 +92,7 @@ class PlayerService: Service() {
 
 
             // Starting Service
-            startForeground(0, notification)
+            startForeground(1, notification)
         }
 
         return Service.START_NOT_STICKY
@@ -63,5 +102,28 @@ class PlayerService: Service() {
         super.onDestroy()
         mediaPlayer.stop()
         isPlaying = false
+    }
+}
+
+class PlayerNotificationReceiver: BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        Toast.makeText(context, "Play/Pause", Toast.LENGTH_SHORT).show()
+        if(intent != null) {
+            val intentAction = intent.action
+            when(intentAction){
+                "play" -> {
+                    Toast.makeText(context, "Play", Toast.LENGTH_SHORT)
+                }
+                "back" -> {
+                    Toast.makeText(context, "Back", Toast.LENGTH_SHORT)
+
+                }
+                "next" -> {
+                    Toast.makeText(context, "Next", Toast.LENGTH_SHORT)
+
+                }
+            }
+        }
+
     }
 }

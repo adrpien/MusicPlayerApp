@@ -26,6 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".PlayerNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="PLAYER_NEXT_SONG">
+
+                </action>
+            </intent-filter>
+
+        </receiver>
+
     </application>
 
 </manifest>

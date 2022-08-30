@@ -54,12 +54,12 @@ class PlayerFragment : Fragment() {
         binding.playerPlayButton.setOnClickListener {
             if(isPlaying){
                 binding.playerPlayButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.play_button, null))
-                binding.playerPlayButton.startAnimation(rotateAnimation)
+                //binding.playerPlayButton.startAnimation(rotateAnimation)
                 requireActivity().stopService(playerServiceIntent)
                 isPlaying = false
             } else {
                 binding.playerPlayButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.pause_button, null))
-                binding.playerPlayButton.startAnimation(rotateAnimation)
+                //binding.playerPlayButton.startAnimation(rotateAnimation)
                 requireActivity().startService(playerServiceIntent)
                 isPlaying = true
             }
@@ -69,16 +69,16 @@ class PlayerFragment : Fragment() {
         // Here
 
         // Timer implementation
-        val timer = Timer()
-        if(mediaPlayer != null && mediaPlayer.isPlaying){
-            timer.scheduleAtFixedRate(timerTask {
-                currentPosition = mediaPlayer.currentPosition.toLong()
-                binding.textView.text = currentPosition.toString()
-            },0,1000)
-        } else {
-            timer.cancel()
-            timer.purge()
-        }
+//        val timer = Timer()
+//        if(mediaPlayer != null && mediaPlayer.isPlaying){
+//            timer.scheduleAtFixedRate(timerTask {
+//                currentPosition = mediaPlayer.currentPosition.toLong()
+//                binding.textView.text = currentPosition.toString()
+//            },0,1000)
+//        } else {
+//            timer.cancel()
+//            timer.purge()
+//        }
     }
 
     override fun onDestroy() {

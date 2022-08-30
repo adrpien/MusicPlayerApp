@@ -2,4 +2,13 @@
     <string name="app_name">MusicPlayerApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="play_action">play_action</string>
+    <string name="play_intent_extra_id">play_intent_extra_id</string>
+    <string name="back">back</string>
+    <string name="next">next</string>
+    <string name="back_action">back_action</string>
+    <string name="back_intent_extra_id">back_intent_extra_id</string>
+    <string name="next_action">next_action</string>
+    <string name="next_intent_extra_id">next_intent_extra_id</string>
 </resources>
