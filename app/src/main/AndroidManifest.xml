@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".PlayerNotificationReceiver"
+        <!--<receiver android:name=".PlayerNotificationReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="PLAYER_NEXT_SONG">
@@ -35,7 +35,7 @@
                 </action>
             </intent-filter>
 
-        </receiver>
+        </receiver>-->
 
     </application>
 

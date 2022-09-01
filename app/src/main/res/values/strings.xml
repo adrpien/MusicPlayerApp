@@ -11,4 +11,9 @@
     <string name="back_intent_extra_id">back_intent_extra_id</string>
     <string name="next_action">next_action</string>
     <string name="next_intent_extra_id">next_intent_extra_id</string>
+    <string name="MUSIC_PLAYER_ACTION">MUSIC_PLAYER_ACTION</string>
+    <string name="PLAY_ACTION">PLAY_ACTION</string>
+    <string name="BACK_ACTION">BACK_ACTION</string>
+    <string name="NEXT_ACTION">NEXT_ACTION</string>
+    <string name="notification_play_button_description">notification_play_button_description</string>
 </resources>

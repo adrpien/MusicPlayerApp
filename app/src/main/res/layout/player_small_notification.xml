@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
-        app:srcCompat="@drawable/back_button"/>
+        android:src="@drawable/back_button"/>
     <!--
         android:background="@drawable/player_back_button"
     -->
@@ -21,7 +21,9 @@
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_toEndOf="@id/notificationBackButton"
-        app:srcCompat="@drawable/next_button"
+        android:src="@drawable/next_button"
+        android:contentDescription="@string/notification_play_button_description"
+
         />
 <!--
         android:background="@drawable/player_play_button"
@@ -30,11 +32,12 @@ c
 
 
     <ImageButton
-        android:id="@+id/NotificationNextButton"
+        android:id="@+id/notificationNextButton"
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_toEndOf="@id/notificationPlayButton"
-        app:srcCompat="@drawable/play_button"/>
+        android:src="@drawable/play_button"
+        />
 <!--
         android:background="@drawable/player_next_button"
 -->

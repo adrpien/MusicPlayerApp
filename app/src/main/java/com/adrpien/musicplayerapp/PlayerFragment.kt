@@ -1,8 +1,8 @@
 package com.adrpien.musicplayerapp
 
+import PlayerNotificationReceiver
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Bitmap
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,11 +12,11 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
 import com.adrpien.musicplayerapp.databinding.FragmentPlayerBinding
-import java.util.*
-import kotlin.concurrent.timerTask
 
 
 class PlayerFragment : Fragment() {
+
+    private lateinit var playerNotificationReceiver: PlayerNotificationReceiver
 
     private var currentPosition: Long = 0
     private var isPlaying: Boolean = false
@@ -32,6 +32,21 @@ class PlayerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        playerNotificationReceiver = PlayerNotificationReceiver()
+
+        requireActivity().registerReceiver(playerNotificationReceiver, IntentFilter(getString(R.string.PLAY_ACTION)))
+        requireActivity().registerReceiver(playerNotificationReceiver, IntentFilter(getString(R.string.BACK_ACTION)))
+        requireActivity().registerReceiver(playerNotificationReceiver, IntentFilter(getString(R.string.NEXT_ACTION)))
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().unregisterReceiver(playerNotificationReceiver)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

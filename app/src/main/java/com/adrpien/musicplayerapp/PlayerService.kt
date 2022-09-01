@@ -58,7 +58,15 @@ class PlayerService: Service() {
 
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            val playIntent = Intent("play")
+            val nextIntent = Intent(getString(R.string.BACK_ACTION))
+            nextIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            val nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_IMMUTABLE)
+
+            val backIntent = Intent(getString(R.string.BACK_ACTION))
+            backIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            val backPendingIntent = PendingIntent.getBroadcast(this, 0, backIntent, PendingIntent.FLAG_IMMUTABLE)
+
+            val playIntent = Intent(getString(R.string.PLAY_ACTION))
             playIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             val playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, PendingIntent.FLAG_IMMUTABLE)
 
@@ -79,6 +87,8 @@ class PlayerService: Service() {
 //                .addAction(R.drawable.back_button, getString(R.string.back), backPendingIntent)
 
             playerNotificationLayout.setOnClickPendingIntent(R.id.notificationPlayButton, playPendingIntent)
+            playerNotificationLayout.setOnClickPendingIntent(R.id.notificationBackButton, backPendingIntent)
+            playerNotificationLayout.setOnClickPendingIntent(R.id.notificationNextButton, nextPendingIntent)
 
             val  notification = notificationBuilder.build()
             notificationManager.notify(1, notification)
@@ -102,28 +112,5 @@ class PlayerService: Service() {
         super.onDestroy()
         mediaPlayer.stop()
         isPlaying = false
-    }
-}
-
-class PlayerNotificationReceiver: BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "Play/Pause", Toast.LENGTH_SHORT).show()
-        if(intent != null) {
-            val intentAction = intent.action
-            when(intentAction){
-                "play" -> {
-                    Toast.makeText(context, "Play", Toast.LENGTH_SHORT)
-                }
-                "back" -> {
-                    Toast.makeText(context, "Back", Toast.LENGTH_SHORT)
-
-                }
-                "next" -> {
-                    Toast.makeText(context, "Next", Toast.LENGTH_SHORT)
-
-                }
-            }
-        }
-
     }
 }
