@@ -1,6 +1,7 @@
 package com.adrpien.musicplayerapp
 
 import PlayerNotificationReceiver
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.MediaPlayer
@@ -16,15 +17,14 @@ import com.adrpien.musicplayerapp.databinding.FragmentPlayerBinding
 
 class PlayerFragment : Fragment() {
 
-    private lateinit var playerNotificationReceiver: PlayerNotificationReceiver
+    private lateinit var playerServiceIntent: Intent
 
-    private var currentPosition: Long = 0
     private var isPlaying: Boolean = false
-    private lateinit var mediaPlayer: MediaPlayer
 
-    // lazy
+    // Animation lazy initalization
     private val rotateAnimation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.player_button_rotation) }
 
+    // Binding
     private var _binding: FragmentPlayerBinding? = null
     private val binding
         get() = _binding!!
@@ -32,21 +32,20 @@ class PlayerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // playerServiceIntent
+        playerServiceIntent = Intent(activity , PlayerService::class.java)
+        playerServiceIntent.putExtra("song", R.raw.taco_hemingway_europa)
+
+        // Starting service
+        requireActivity().startService(playerServiceIntent)
     }
 
     override fun onResume() {
         super.onResume()
-        playerNotificationReceiver = PlayerNotificationReceiver()
-
-        requireActivity().registerReceiver(playerNotificationReceiver, IntentFilter(getString(R.string.PLAY_ACTION)))
-        requireActivity().registerReceiver(playerNotificationReceiver, IntentFilter(getString(R.string.BACK_ACTION)))
-        requireActivity().registerReceiver(playerNotificationReceiver, IntentFilter(getString(R.string.NEXT_ACTION)))
-
     }
 
     override fun onPause() {
         super.onPause()
-        requireActivity().unregisterReceiver(playerNotificationReceiver)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,42 +57,47 @@ class PlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // playerServiceIntent
-        val playerServiceIntent = Intent(activity , PlayerService::class.java)
+        playerServiceIntent = Intent(activity , PlayerService::class.java)
+        playerServiceIntent.putExtra("song", R.raw.taco_hemingway_europa)
 
+        // Starting service
+        requireActivity().startService(playerServiceIntent)
 
-
-        // Play, next, back buttons implementations
-        binding.playerNextButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.next_button, null))
-        binding.playerBackButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.back_button, null))
-        binding.playerPlayButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.play_button, null))
         binding.playerPlayButton.setOnClickListener {
             if(isPlaying){
-                binding.playerPlayButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.play_button, null))
-                //binding.playerPlayButton.startAnimation(rotateAnimation)
-                requireActivity().stopService(playerServiceIntent)
-                isPlaying = false
-            } else {
+
+                // Pending intent with broadcast for custom view play button on click
+                val playIntent = Intent(getString(R.string.PLAY_ACTION))
+                playIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                val backPendingIntent = PendingIntent.getBroadcast(context, 0, playIntent, PendingIntent.FLAG_IMMUTABLE)
                 binding.playerPlayButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.pause_button, null))
+
+            } else {
+                // Pending intent with broadcast for custom view pause button on click
+                val pauseIntent = Intent(getString(R.string.PAUSE_ACTION))
+                pauseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                val backPendingIntent = PendingIntent.getBroadcast(context, 0, pauseIntent, PendingIntent.FLAG_IMMUTABLE)
+                binding.playerPlayButton.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.play_button, null))
+
+                // TODO Start animation
                 //binding.playerPlayButton.startAnimation(rotateAnimation)
-                requireActivity().startService(playerServiceIntent)
-                isPlaying = true
             }
         }
 
-        // TODO mediaPlayer initialization
-        // Here
-
-        // Timer implementation
-//        val timer = Timer()
-//        if(mediaPlayer != null && mediaPlayer.isPlaying){
-//            timer.scheduleAtFixedRate(timerTask {
-//                currentPosition = mediaPlayer.currentPosition.toLong()
-//                binding.textView.text = currentPosition.toString()
-//            },0,1000)
-//        } else {
-//            timer.cancel()
-//            timer.purge()
-//        }
+        // TODO Time bar implementation
+        /*
+        Timer implementation
+        val timer = Timer()
+        if(mediaPlayer != null && mediaPlayer.isPlaying){
+            timer.scheduleAtFixedRate(timerTask {
+                currentPosition = mediaPlayer.currentPosition.toLong()
+                binding.textView.text = currentPosition.toString()
+            },0,1000)
+        } else {
+            timer.cancel()
+            timer.purge()
+        }
+        */
     }
 
     override fun onDestroy() {

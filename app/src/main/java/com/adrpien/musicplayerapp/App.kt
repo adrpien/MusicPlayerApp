@@ -3,16 +3,22 @@ package com.adrpien.musicplayerapp
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.media.MediaPlayer
 import android.os.Build
 
 class App: Application() {
 
+
     companion object{
         const val  PLAYER_CHANNEL = "PLAYER CHANNEL"
+        lateinit var mediaPlayer: MediaPlayer
     }
 
     override fun onCreate() {
         super.onCreate()
+
+        lateinit var mediaPlayer: MediaPlayer
+
 
         // Use NotificationChannel if API 26 or higher
         // Build.VERSION_CODES.O - Oreo (API26)

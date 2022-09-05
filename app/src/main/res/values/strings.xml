@@ -16,4 +16,5 @@
     <string name="BACK_ACTION">BACK_ACTION</string>
     <string name="NEXT_ACTION">NEXT_ACTION</string>
     <string name="notification_play_button_description">notification_play_button_description</string>
+    <string name="PAUSE_ACTION">PAUSE_ACTION</string>
 </resources>
