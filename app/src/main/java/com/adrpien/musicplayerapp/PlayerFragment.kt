@@ -1,9 +1,7 @@
 package com.adrpien.musicplayerapp
 
-import PlayerNotificationReceiver
 import android.app.PendingIntent
 import android.content.*
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.IBinder
 import androidx.fragment.app.Fragment
@@ -12,10 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
+import com.adrpien.musicplayerapp.PlayerService.PlayerServiceBinder
 import com.adrpien.musicplayerapp.databinding.FragmentPlayerBinding
 
 
 class PlayerFragment : Fragment() {
+
+    var playerServiceBound = false
+    private lateinit var playerService: PlayerService
 
     private lateinit var playerServiceIntent: Intent
 
@@ -38,14 +40,16 @@ class PlayerFragment : Fragment() {
 
         // Starting service
         requireActivity().startService(playerServiceIntent)
+
         val serviceConnection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                PlayerService.PlayerServiceBinder = service as PlayerService.PlayerServiceBinder
-
+                val binder = service as PlayerServiceBinder
+                playerService = binder.getService()
+                playerServiceBound = true
             }
 
             override fun onServiceDisconnected(name: ComponentName?) {
-                TODO("Not yet implemented")
+                playerServiceBound = false
             }
 
         }

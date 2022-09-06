@@ -21,14 +21,18 @@ import com.adrpien.musicplayerapp.App.Companion.mediaPlayer
 
 class PlayerService: Service() {
 
+    // IBinder
     private val binder: IBinder = PlayerServiceBinder()
+
+    // Song
     private var song: Int = 0
 
-    var songDuration: Long = 0
+    //var songDuration: Long = 0
 
     private lateinit var playerNotificationReceiver: PlayerNotificationReceiver
 
     private val intentRequestCode: Int = 0
+
     // private var mediaPlayer: MediaPlayer = MediaPlayer()
     private var isPlaying: Boolean = false
 
@@ -134,9 +138,11 @@ class PlayerService: Service() {
     }
 
     inner class PlayerServiceBinder: Binder(){
+
         fun getService(): PlayerService{
             return this@PlayerService
         }
+
 
     }
 }
