@@ -21,7 +21,7 @@ import com.adrpien.musicplayerapp.App.Companion.mediaPlayer
 
 class PlayerService: Service() {
 
-    private val binder = PlayerServiceBinder()
+    private val binder: IBinder = PlayerServiceBinder()
     private var song: Int = 0
 
     var songDuration: Long = 0

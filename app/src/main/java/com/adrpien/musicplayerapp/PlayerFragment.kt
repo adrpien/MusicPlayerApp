@@ -2,10 +2,10 @@ package com.adrpien.musicplayerapp
 
 import PlayerNotificationReceiver
 import android.app.PendingIntent
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.IBinder
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +38,18 @@ class PlayerFragment : Fragment() {
 
         // Starting service
         requireActivity().startService(playerServiceIntent)
+        val serviceConnection = object : ServiceConnection {
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                PlayerService.PlayerServiceBinder = service as PlayerService.PlayerServiceBinder
+
+            }
+
+            override fun onServiceDisconnected(name: ComponentName?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+        requireActivity().bindService(playerServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onResume() {
