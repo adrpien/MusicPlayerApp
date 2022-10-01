@@ -3,6 +3,9 @@
     package="com.adrpien.musicplayerapp">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".App"
@@ -15,6 +18,12 @@
 
         <service android:name=".PlayerService"
             android:exported="true">
+        </service>
+        <service android:name=".PlayerMediaBrowserService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
         </service>
 
         <activity

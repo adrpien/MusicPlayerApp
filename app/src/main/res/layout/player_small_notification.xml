@@ -23,7 +23,6 @@
         android:layout_toEndOf="@id/notificationBackButton"
         android:src="@drawable/next_button"
         android:contentDescription="@string/notification_play_button_description"
-
         />
 <!--
         android:background="@drawable/player_play_button"

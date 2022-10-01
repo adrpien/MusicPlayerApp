@@ -2,37 +2,35 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import com.adrpien.musicplayerapp.App.Companion.mediaPlayer
+
 import com.adrpien.musicplayerapp.PlayerService
+import com.adrpien.musicplayerapp.R
 
 class PlayerNotificationReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-
 
         if(intent != null) {
             val intentAction = intent.action
             when(intentAction){
                 "PLAY_ACTION" -> {
-                    // HOW TO GET ACCESS TO MEDIA PLAYER IN SERVICE ?????
-                    mediaPlayer.start()
-                    Toast.makeText(context, "PLAY_ACTION", Toast.LENGTH_SHORT).show()
-                    // TODO Change image button image in fragment
-
+                    val playIntent = Intent(context, PlayerService::class.java)
+                    playIntent.action = context?.getString(R.string.PLAY_ACTION)
+                    context?.startService(playIntent)
                 }
                 "BACK_ACTION" -> {
-                    // TODO Notification back button implementation
-                    Toast.makeText(context, "BACK_ACTION", Toast.LENGTH_SHORT).show()
-
+                    val backIntent = Intent(context, PlayerService::class.java)
+                    backIntent.action = context?.getString(R.string.BACK_ACTION)
+                    context?.startService(backIntent)
                 }
                 "NEXT_ACTION" -> {
-                    // TODO Notification next button implementation
-                    Toast.makeText(context, "NEXT_ACTION", Toast.LENGTH_SHORT).show()
-
+                    val nextIntent = Intent(context, PlayerService::class.java)
+                    nextIntent.action = context?.getString(R.string.NEXT_ACTION)
+                    context?.startService(nextIntent)
                 }
                 "PAUSE_ACTION" -> {
-                    // TODO Notification pause button implementation
-                    Toast.makeText(context, "PAUSE_ACTION", Toast.LENGTH_SHORT).show()
-
+                    val pauseIntent = Intent(context, PlayerService::class.java)
+                    pauseIntent.action = context?.getString(R.string.PAUSE_ACTION)
+                    context?.startService(pauseIntent)
                 }
             }
         }

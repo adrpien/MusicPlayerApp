@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
 
 class App: Application() {
@@ -11,7 +12,6 @@ class App: Application() {
 
     companion object{
         const val  PLAYER_CHANNEL = "PLAYER CHANNEL"
-        lateinit var mediaPlayer: MediaPlayer
     }
 
     override fun onCreate() {
