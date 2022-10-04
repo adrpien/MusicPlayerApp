@@ -16,18 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
+import com.adrpien.musicplayerapp.PlayerService.PlayerServiceBinder
 import com.adrpien.musicplayerapp.databinding.FragmentPlayerBinding
-import com.bumptech.glide.RequestManager
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.currentCoroutineContext
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
- @AndroidEntryPoint
+
 class PlayerFragment : Fragment() {
-
-    @Inject
-    lateinit var glide: RequestManager
 
     // Binding
     private var _binding: FragmentPlayerBinding? = null
@@ -36,7 +31,6 @@ class PlayerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,12 +40,9 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
     }
-
 }
