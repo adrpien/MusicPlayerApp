@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayerApp">
 
-        <service android:name=".PlayerMediaBrowserService"
+        <service android:name=".exoplayer.PlayerMediaBrowserService"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
@@ -24,7 +24,7 @@
         </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.adrpien.musicplayerapp
+package com.adrpien.musicplayerapp.fragments
 
 import android.app.PendingIntent
 import android.content.*
@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
-import com.adrpien.musicplayerapp.PlayerService.PlayerServiceBinder
 import com.adrpien.musicplayerapp.databinding.FragmentPlayerBinding
 import kotlinx.coroutines.currentCoroutineContext
 import java.util.concurrent.TimeUnit

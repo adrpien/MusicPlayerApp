@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.adrpien.musicplayerapp.HomeFragment"
+        android:name="com.adrpien.musicplayerapp.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/playerFragment"
-        android:name="com.adrpien.musicplayerapp.PlayerFragment"
+        android:name="com.adrpien.musicplayerapp.fragments.PlayerFragment"
         android:label="fragment_player"
         tools:layout="@layout/fragment_player" />
     <fragment
         android:id="@+id/songListFragment"
-        android:name="com.adrpien.musicplayerapp.SongListFragment"
+        android:name="com.adrpien.musicplayerapp.fragments.SongListFragment"
         android:label="fragment_song_list"
         tools:layout="@layout/fragment_song_list" />
 </navigation>

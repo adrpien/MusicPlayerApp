@@ -1,11 +1,10 @@
-package com.adrpien.musicplayerapp
+package com.adrpien.musicplayerapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.adrpien.musicplayerapp.R
 import com.adrpien.musicplayerapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
