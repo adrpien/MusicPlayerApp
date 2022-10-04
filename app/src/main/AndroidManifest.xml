@@ -8,7 +8,7 @@
 
 
     <application
-        android:name=".App"
+        android:name=".other.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayerApp">
 
-        <service android:name=".PlayerService"
-            android:exported="true">
-        </service>
         <service android:name=".PlayerMediaBrowserService"
             android:exported="true">
             <intent-filter>

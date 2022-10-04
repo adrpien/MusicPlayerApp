@@ -1,12 +1,14 @@
-package com.adrpien.musicplayerapp
+package com.adrpien.musicplayerapp.other
 
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Build
+import dagger.hilt.android.HiltAndroidApp
 
+// Mark as application class for Dagger Hilt
+@HiltAndroidApp
 class App: Application() {
 
 
