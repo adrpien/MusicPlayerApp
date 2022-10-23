@@ -11,8 +11,8 @@ class MusicDatabase {
     private val songCollection = firebaseFirestore.collection(SONG_LIST)
 
 
-    suspend fun getSongList(){
-        try {
+    suspend fun getSongList(): List<Song>{
+        return try {
             songCollection.get().await().toObjects(Song::class.java)
         } catch (e: Exception) {
             emptyList<Song>()

@@ -1,6 +1,7 @@
 package com.adrpien.musicplayerapp.depencyinjection
 
 import android.content.Context
+import com.adrpien.musicplayerapp.data.remote.MusicDatabase
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
@@ -15,6 +16,10 @@ import dagger.hilt.android.scopes.ServiceScoped
 @Module
 @InstallIn(ServiceComponent::class)
 object PlayerServiceModule {
+
+    @ServiceScoped
+    @Provides
+    fun provideMusicDatabase()= MusicDatabase()
 
     @ServiceScoped
     @Provides
