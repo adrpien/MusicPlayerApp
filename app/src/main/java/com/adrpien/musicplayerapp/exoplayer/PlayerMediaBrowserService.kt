@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.media.MediaBrowserServiceCompat
+import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.adrpien.musicplayerapp.other.Constants.SERVICE_TAG
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -22,12 +23,17 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
     @Inject
     lateinit var defaultDataSource: DefaultDataSource
 
+
     @Inject
     lateinit var exoPlayer: ExoPlayer
+
+    var isForegroundService = false
 
     // Coroutine initialization
     private val serviceJob = Job()
     private val serviceScoped = CoroutineScope(Dispatchers.Main + serviceJob)
+
+    private lateinit var musicNotificationManager: MusicNotificationManager
 
     // MediaSession
     private lateinit var mediaSession: MediaSessionCompat
@@ -50,9 +56,16 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
         // Setting sessionToken property of our service as sessionToken property of its MediaSession instance
         sessionToken = mediaSession.sessionToken
 
-        // MediaSessionConnectior initalization
+        // MediaSessionConnector initalization
         mediaSessionConnector = MediaSessionConnector(mediaSession)
         mediaSessionConnector.setPlayer(exoPlayer)
+
+        musicNotificationManager = MusicNotificationManager(
+            this,
+            mediaSession.sessionToken,
+            MusicPlayerNotificationListener(this)) {
+            // This lambda toggles when song switches
+        }
 
     }
 

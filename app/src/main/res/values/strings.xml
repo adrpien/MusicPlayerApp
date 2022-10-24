@@ -1,21 +1,28 @@
 <resources>
     <string name="app_name">MusicPlayerApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="play">Play</string>
-    <string name="play_action">play_action</string>
-    <string name="play_intent_extra_id">play_intent_extra_id</string>
-    <string name="back">back</string>
-    <string name="next">next</string>
-    <string name="back_action">back_action</string>
-    <string name="back_intent_extra_id">back_intent_extra_id</string>
-    <string name="next_action">next_action</string>
-    <string name="next_intent_extra_id">next_intent_extra_id</string>
+
+    <!-- NOT USED -->
+    <string name="notification_play_button_description">notification_play_button_description</string>
     <string name="MUSIC_PLAYER_ACTION">MUSIC_PLAYER_ACTION</string>
     <string name="PLAY_ACTION">PLAY_ACTION</string>
     <string name="BACK_ACTION">BACK_ACTION</string>
     <string name="NEXT_ACTION">NEXT_ACTION</string>
-    <string name="notification_play_button_description">notification_play_button_description</string>
     <string name="PAUSE_ACTION">PAUSE_ACTION</string>
     <string name="PREVIOUS_ACTION">PREVIOUS_ACTION</string>
+    <string name="play_intent_extra_id">play_intent_extra_id</string>
+    <string name="back_intent_extra_id">back_intent_extra_id</string>
+    <string name="next_intent_extra_id">next_intent_extra_id</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="play_action">play_action</string>
+    <string name="back">back</string>
+    <string name="next">next</string>
+    <string name="back_action">back_action</string>
+    <string name="next_action">next_action</string>
+
+    <!-- App strings -->
+    <string name="music_notification_channel_id">1</string>
+    <string name="notification_channel_description">shows_currently_playing_music</string>
+    <string name="music_notification_channel">music_notification_channel</string>
+
 </resources>
