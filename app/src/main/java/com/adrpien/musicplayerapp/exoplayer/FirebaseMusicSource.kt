@@ -1,19 +1,14 @@
 package com.adrpien.musicplayerapp.exoplayer
 
-import android.graphics.Bitmap
-import android.net.Uri
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.MediaMetadataCompat.*
 import androidx.core.net.toUri
-import androidx.navigation.NavDeepLinkRequest.Builder.Companion.fromUri
 import com.adrpien.musicplayerapp.data.remote.MusicDatabase
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.MediaItem.fromUri
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
-import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSource
 import kotlinx.coroutines.Dispatchers
@@ -102,7 +97,7 @@ class FirebaseMusicSource @Inject constructor(
         }
     }
 
-    fun asMediaItem() {
+    fun asMediaItems() =
         songsMetadata.map { song ->
             val mediaDescriptionCompat = MediaDescriptionCompat.Builder()
                 .setMediaUri(song.getString(METADATA_KEY_MEDIA_URI).toUri())
@@ -112,8 +107,8 @@ class FirebaseMusicSource @Inject constructor(
                 .setMediaId(song.description.mediaId)
                 .build()
             MediaBrowserCompat.MediaItem(mediaDescriptionCompat, FLAG_PLAYABLE)
-        }
-    }
+        }.toMutableList()
+
     // Media source is single song which can by played by Exoplayer
     // Function creates concatinating single music sources (list of single music sourcess)
     // Converting s

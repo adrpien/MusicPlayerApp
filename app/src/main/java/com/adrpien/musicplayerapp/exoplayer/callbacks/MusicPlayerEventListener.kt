@@ -10,7 +10,7 @@ class MusicPlayerEventListener(
     private val musicService: PlayerMediaBrowserService
     ): Player.Listener
 {
-    @Deprecated ("Use onPlaybackStateChanged and onPlayWhenReadyChanged insted")
+    @Deprecated ("Use onPlaybackStateChanged and onPlayWhenReadyChanged instead")
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         super.onPlayerStateChanged(playWhenReady, playbackState)
     }
