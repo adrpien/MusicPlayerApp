@@ -3,13 +3,17 @@ package com.adrpien.musicplayerapp.exoplayer
 import android.app.PendingIntent
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.media.MediaBrowserServiceCompat
+import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlaybackPreparer
+import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlayerEventListener
 import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.adrpien.musicplayerapp.other.Constants.SERVICE_TAG
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.upstream.DefaultDataSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,13 +25,17 @@ import javax.inject.Inject
 class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
 
     @Inject
-    lateinit var defaultDataSource: DefaultDataSource
+    lateinit var defaultDataSourceFactory: DefaultDataSource.Factory
 
+    @Inject
+    lateinit var firebaseMusicSource: FirebaseMusicSource
 
     @Inject
     lateinit var exoPlayer: ExoPlayer
 
     var isForegroundService = false
+
+    private var currentlyPlayingSong: MediaMetadataCompat? = null
 
     // Coroutine initialization
     private val serviceJob = Job()
@@ -56,9 +64,6 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
         // Setting sessionToken property of our service as sessionToken property of its MediaSession instance
         sessionToken = mediaSession.sessionToken
 
-        // MediaSessionConnector initalization
-        mediaSessionConnector = MediaSessionConnector(mediaSession)
-        mediaSessionConnector.setPlayer(exoPlayer)
 
         musicNotificationManager = MusicNotificationManager(
             this,
@@ -67,6 +72,23 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
             // This lambda toggles when song switches
         }
 
+        // MusicPlaybackPreparer initialization
+        val musicPlaybackPreparer = MusicPlaybackPreparer(firebaseMusicSource) {
+            currentlyPlayingSong = it
+            prepareExoplayer(
+                firebaseMusicSource.songsMetadata,
+                it,
+                true
+            )
+        }
+
+        // MediaSessionConnector initalization
+        mediaSessionConnector = MediaSessionConnector(mediaSession)
+        mediaSessionConnector.setPlaybackPreparer(musicPlaybackPreparer)
+        mediaSessionConnector.setPlayer(exoPlayer)
+
+        exoPlayer.addListener(MusicPlayerEventListener(this))
+        musicNotificationManager.showNotification(exoPlayer)
     }
 
     override fun onDestroy() {
@@ -89,6 +111,19 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>
     ) {
          TODO("Not yet implemented")
+    }
+
+    private fun prepareExoplayer(
+        songs: List<MediaMetadataCompat>,
+        songToPlay: MediaMetadataCompat?,
+        playNow: Boolean
+    ){
+        val songIndex = if(currentlyPlayingSong == null) 0  else songs.indexOf(songToPlay)
+        exoPlayer.setMediaSource(firebaseMusicSource.asMediaSource(defaultDataSourceFactory))
+        exoPlayer.prepare()
+        exoPlayer.seekTo(songIndex, 0L)
+        exoPlayer.playWhenReady = playNow
+        }
     }
 
 }

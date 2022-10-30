@@ -9,7 +9,8 @@ import com.adrpien.musicplayerapp.exoplayer.PlayerMediaBrowserService
 import com.adrpien.musicplayerapp.other.Constants.MUSIC_NOTIFICATION_CHANNEL_ID
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 
-class MusicPlayerNotificationListener(private val musicService: PlayerMediaBrowserService):  PlayerNotificationManager.NotificationListener{
+// In this class we set what we want to do when our notification is canceled or posted
+class  MusicPlayerNotificationListener(private val musicService: PlayerMediaBrowserService):  PlayerNotificationManager.NotificationListener{
     override fun onNotificationCancelled(notificationId: Int, dismissedByUser: Boolean) {
         super.onNotificationCancelled(notificationId, dismissedByUser)
         musicService.apply {

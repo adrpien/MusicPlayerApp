@@ -48,7 +48,7 @@ class MusicNotificationManager(
     }
 
     fun showNotification(player: Player){
-        // Setting the player starts a notification immediately unless the player
+        // Setting the player starts a notification immediately
         notificationManager.setPlayer(player)
     }
 

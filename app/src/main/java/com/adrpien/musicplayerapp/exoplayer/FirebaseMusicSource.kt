@@ -40,17 +40,23 @@ class FirebaseMusicSource @Inject constructor(
     private var songState: SongState = com.adrpien.musicplayerapp.exoplayer.SongState.STATE_CREATED
         set(value) {
             // call all lambdas from the list when songState is STATE_ERROR or STATE_INITIALIZED in thread save way
-            if(value == com.adrpien.musicplayerapp.exoplayer.SongState.STATE_INITIALIZING ||  value == com.adrpien.musicplayerapp.exoplayer.SongState.STATE_ERROR) {
+            if(value == com.adrpien.musicplayerapp.exoplayer.SongState.STATE_INITIALIZED ||  value == com.adrpien.musicplayerapp.exoplayer.SongState.STATE_ERROR) {
 
                 // call all lambdas in a thread save way
                 // What happens in synchronised block can be accesed only from its thread
+                /*
+                ************* SYNCHRONIZED METHODS ************
+                * A thread that enters a synchronized method obtains a lock
+                * (an object being locked is the instance of the containing class)
+                * and no other thread can enter the method until the lock is released.
+                 */
                 synchronized(onReadyListeners) {
                     field = value
                     onReadyListeners.forEach { listener ->
                         listener(songState == SongState.STATE_INITIALIZED)
                     }
                 }
-            } else {
+            } else  {
                 field = value
             }
         }
