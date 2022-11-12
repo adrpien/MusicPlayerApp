@@ -1,4 +1,4 @@
-package com.adrpien.musicplayerapp.activities
+package com.adrpien.musicplayerapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

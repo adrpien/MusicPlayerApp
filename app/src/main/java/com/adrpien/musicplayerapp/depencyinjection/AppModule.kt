@@ -2,6 +2,7 @@ package com.adrpien.musicplayerapp.depencyinjection
 
 import android.content.Context
 import com.adrpien.musicplayerapp.R
+import com.adrpien.musicplayerapp.exoplayer.MusicServiceConnection
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -18,6 +19,13 @@ import javax.inject.Singleton
 object AppModule {
 
     @Singleton
+    @Provides
+    fun provideMusicServiceConnection(
+        @ApplicationContext context: Context
+    ) = MusicServiceConnection(context)
+
+    @Singleton
+    @Provides
     fun provideGlideInstance(
          @ApplicationContext context: Context,
     ) = Glide.with(context).setDefaultRequestOptions(
