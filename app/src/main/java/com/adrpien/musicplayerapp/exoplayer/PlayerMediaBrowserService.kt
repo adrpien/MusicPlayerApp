@@ -12,6 +12,7 @@ import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlaybackPreparer
 import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlayerEventListener
 import com.adrpien.musicplayerapp.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.adrpien.musicplayerapp.other.Constants.MEDIA_ROOT_ID
+import com.adrpien.musicplayerapp.other.Constants.NETWORK_ERROR
 import com.adrpien.musicplayerapp.other.Constants.SERVICE_TAG
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
@@ -42,12 +43,20 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
 
     private var currentlyPlayingSong: MediaMetadataCompat? = null
 
+    //private lateinit var musicServiceConnection: MusicServiceConnection
+
     // Coroutine initialization
     private val serviceJob = Job()
     private val serviceScoped = CoroutineScope(Dispatchers.Main + serviceJob)
 
     private lateinit var musicNotificationManager: MusicNotificationManager
 
+    /*
+    Media sessions are an integral link between the Android platform and media apps.
+    Not only does it inform Android that media is playing — so that
+    it can forward media actions into the correct session —
+    but it also informs the platform what is playing and how it can be controlled.
+     */
     // MediaSession
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var mediaSessionConnector: MediaSessionConnector
@@ -78,6 +87,9 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
 
         // Setting sessionToken property of our service as sessionToken property of its MediaSession instance
         sessionToken = mediaSession.sessionToken
+
+        /*// MediaSessionConnector initialization
+        mediaSessionConnector = MediaSessionConnector(mediaSession)*/
 
         // Initializing MusicNotificationManager
         musicNotificationManager = MusicNotificationManager(
@@ -117,8 +129,10 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
         super.onDestroy()
         // Make sure to cancel coroutine when service dies (to prevent memory leakage)
         serviceScoped.cancel()
+        // Remove Listener to prevent memory leaks
         exoPlayer.removeListener(musicPlayerEventListener)
-        exoPlayer.release() // releases resources of exoplayer
+        // Releases resources of exoplayer
+        exoPlayer.release()
     }
 
     override fun onGetRoot(
@@ -138,16 +152,21 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
             MEDIA_ROOT_ID -> {
                 val resultSent = firebaseMusicSource.whenReady { isInitialized ->
                     if (isInitialized){
+                        // Send the result back to the caller
                         result.sendResult(firebaseMusicSource.asMediaItems())
+                        // Prepare exoplayer when MediaItems MutableList ready
                         if(!isPlayerInitialized && firebaseMusicSource.songsMetadata.isNotEmpty()){
                             prepareExoplayer(firebaseMusicSource.songsMetadata, firebaseMusicSource.songsMetadata[0], false)
                             isPlayerInitialized = true
                         }
                     } else {
+                        // Send Event when null returned
+                        mediaSession.sendSessionEvent(NETWORK_ERROR, null)
                         result.sendResult(null)
                     }
                 }
                 if(!resultSent) {
+                    // Detach this message from the current thread and allow the sendResult call to happen later.
                     result.detach()
                 }
             }

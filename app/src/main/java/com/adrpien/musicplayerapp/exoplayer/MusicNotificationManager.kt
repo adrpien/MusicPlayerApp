@@ -36,7 +36,8 @@ class MusicNotificationManager(
             )
                 .setChannelNameResourceId(R.string.music_notification_channel)
                 .setChannelDescriptionResourceId(R.string.notification_channel_description)
-                .setMediaDescriptionAdapter(DescriptionAdapter(mediaController)) // Media controller is used to controll media
+                // Media controller is used to control media and contain metadata about currently playing song
+                .setMediaDescriptionAdapter(DescriptionAdapter(mediaController))
                 .setNotificationListener(notificationListener)
                 .setSmallIconResourceId(R.drawable.app_notification_icon) // small icon in upper bar
                 .build()
