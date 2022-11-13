@@ -33,9 +33,13 @@ object PlayerServiceModule {
     fun provideExoPlayer(
         @ApplicationContext context: Context,
         audioAttributes: AudioAttributes
-    ) = ExoPlayer.Builder(context).apply {
-        setAudioAttributes(audioAttributes, true)
-        setHandleAudioBecomingNoisy(true) // pause music when headphones accidentally unplugged
+    ): ExoPlayer {
+        val exoPlayer = ExoPlayer.Builder(context).apply {
+            setAudioAttributes(audioAttributes, true)
+            setHandleAudioBecomingNoisy(true) // pause music when headphones accidentally unplugge
+        }.build()
+
+        return exoPlayer
     }
 
 

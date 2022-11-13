@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
+import com.adrpien.musicplayerapp.R
 import com.adrpien.musicplayerapp.adapters.SongListAdapter
 import com.adrpien.musicplayerapp.databinding.FragmentPlayerBinding
 import com.adrpien.musicplayerapp.other.Resource
@@ -46,6 +47,7 @@ class PlayerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentPlayerBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
