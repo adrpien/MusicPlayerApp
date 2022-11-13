@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp">
+
+    <ImageView
+        android:id="@+id/songRowImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="5dp"
+         />
+
+    <TextView
+        android:id="@+id/songRowTitleTextView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/songRowImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:id="@+id/songRowArtistTextView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/songRowImageView"
+        app:layout_constraintTop_toBottomOf="@id/songRowTitleTextView"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@+id/songRowImageView"
+        app:layout_constraintTop_toBottomOf="@+id/songRowArtistTextView"
+        android:layout_margin="5dp">
+
+        <ImageButton
+            android:id="@+id/songRowToggledImageButton"
+            app:srcCompat="@drawable/back_button"
+            style="@style/player_bar_button_style" />
+
+        <ImageButton
+            android:id="@+id/songRowPreviousImageButton"
+            style="@style/player_bar_button_style"
+            app:srcCompat="@drawable/play_button" />
+
+        <ImageButton
+            android:id="@+id/songRowNextImageButton"
+            style="@style/player_bar_button_style"
+            app:srcCompat="@drawable/next_button" />
+
+        <ImageButton
+            android:id="@+id/songRowFavouriteImageButton"
+            style="@style/player_bar_button_style"
+            app:srcCompat="@drawable/favourite_unclicked_button"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

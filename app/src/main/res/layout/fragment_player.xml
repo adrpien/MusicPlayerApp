@@ -5,60 +5,82 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PlayerFragment">
+    tools:context=".ui.fragments.PlayerFragment">
 
+
+    <ImageView
+        android:id="@+id/playerIconImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/default_music_icon" />
+
+    <TextView
+        android:id="@+id/playerTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Title"
+        app:layout_constraintBottom_toTopOf="@+id/playerArtistTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/playerArtistTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Artist"
+        app:layout_constraintBottom_toTopOf="@+id/playerIconImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/playerSongTimeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerArtistTextView" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/playerBackButton"
-            android:layout_width="@dimen/player_button_size"
-            android:layout_height="@dimen/player_button_size"
+            android:id="@+id/playerPreviousButton"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:background="@drawable/player_back_button"
-            android:src="@drawable/player_back_button"
-
-            />
+            android:src="@drawable/back_button"
+            android:contentDescription="player_previous_button"/>
 
         <ImageButton
             android:id="@+id/playerPlayButton"
-            android:layout_width="@dimen/player_button_size"
-            android:layout_height="@dimen/player_button_size"
-            android:background="@drawable/player_play_button" />
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/player_play_button"
+            android:src="@drawable/play_button"
+            android:contentDescription="player_play_button" />
 
         <ImageButton
             android:id="@+id/playerNextButton"
-            android:layout_width="@dimen/player_button_size"
-            android:layout_height="@dimen/player_button_size"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:background="@drawable/player_next_button"
-            android:src="@drawable/player_next_button"
-
-            />
-
+            android:src="@drawable/next_button"
+            android:contentDescription="player_next_button"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/songTimeBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <SeekBar
-        android:id="@+id/songTimeBar"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        android:layout_marginBottom="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
