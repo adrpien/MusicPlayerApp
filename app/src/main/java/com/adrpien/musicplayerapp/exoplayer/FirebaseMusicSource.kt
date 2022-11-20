@@ -63,11 +63,16 @@ class FirebaseMusicSource @Inject constructor(
     // Switch currently running thread of the coroutine to IO Thread which is optimized for IO operations
     // which fits for database/network operations
     // Switch current coroutine context to Dispatchers.IO
-    suspend fun fetchMetaData() = withContext(Dispatchers.IO)   {
+    suspend fun fetchMetaData()  {
         songState = SongState.STATE_INITIALIZING
+        getSongList()
+        songState =  SongState.STATE_INITIALIZED
+    }
+
+    suspend fun getSongList() = withContext(Dispatchers.IO)  {
         val allSongs = musicDatabase.getSongList()
         songsMetadata = allSongs.map { song ->
-            MediaMetadataCompat.Builder()
+            Builder()
                 .putString(METADATA_KEY_ARTIST, song.artist)
                 .putString(METADATA_KEY_MEDIA_ID, song.id)
                 .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
@@ -79,10 +84,7 @@ class FirebaseMusicSource @Inject constructor(
                 .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.subtitle)
                 .build()
         }
-
-        songState =  SongState.STATE_INITIALIZED
     }
-
 
 
     // Adds lambda to onReadyListeners, when downloading is not fishied or even started

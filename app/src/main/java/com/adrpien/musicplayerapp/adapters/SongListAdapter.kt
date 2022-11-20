@@ -51,20 +51,20 @@ class SongListAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
     val song = songs[position]
-        holder.itemView.apply {
-            val playerIconImageView = findViewById<ImageView>(R.id.playerIconImageView)
-            val playerTitleTextView = findViewById<TextView>(R.id.playerTitleTextView)
-            val playerArtistTextView = findViewById<TextView>(R.id.playerTitleTextView)
-            playerTitleTextView.text = song.title
-            playerArtistTextView.text = song.artist
-            glide.load(song.coverURL).into(playerIconImageView)
+    holder.itemView.apply {
+        val playerIconImageView = findViewById<ImageView>(R.id.songRowImageView)
+        val playerTitleTextView = findViewById<TextView>(R.id.songRowTitleTextView)
+        val playerArtistTextView = findViewById<TextView>(R.id.songRowArtistTextView)
+        playerTitleTextView.text = song.title
+        playerArtistTextView.text = song.artist
+        glide.load(song.coverURL).into(playerIconImageView)
 
-            setOnItemClickListener { song ->
-                onItemClickListener?.let { listener ->
-                    listener(song)
-                }
+        setOnItemClickListener { song ->
+            onItemClickListener?.let { listener ->
+                listener(song)
             }
         }
+    }
     }
 
     override fun getItemCount(): Int {
