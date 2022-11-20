@@ -1,6 +1,7 @@
 package com.adrpien.musicplayerapp.exoplayer
 
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
@@ -76,9 +77,8 @@ class PlayerMediaBrowserService: MediaBrowserServiceCompat() {
 
         // Getting PendingIntent to our activity
         val activityPendingIntent = packageManager?.getLaunchIntentForPackage(packageName)?. let {
-            PendingIntent.getActivity(this,0, it, 0)
+            PendingIntent.getActivity(this,0, it, FLAG_IMMUTABLE)
         }
-
         // MediaSession initialization
         mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
             setSessionActivity(activityPendingIntent)
