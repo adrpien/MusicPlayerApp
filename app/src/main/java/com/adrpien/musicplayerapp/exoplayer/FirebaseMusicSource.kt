@@ -64,7 +64,7 @@ class FirebaseMusicSource @Inject constructor(
     // which fits for database/network operations
     // Switch current coroutine context to Dispatchers.IO
     suspend fun fetchMetaData() = withContext(Dispatchers.IO)   {
-        songState = SongState.STATE_INITIALIZED
+        songState = SongState.STATE_INITIALIZING
         val allSongs = musicDatabase.getSongList()
         songsMetadata = allSongs.map { song ->
             MediaMetadataCompat.Builder()

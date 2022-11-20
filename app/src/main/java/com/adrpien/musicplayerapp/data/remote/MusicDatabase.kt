@@ -12,8 +12,13 @@ class MusicDatabase {
 
 
     suspend fun getSongList(): List<Song>{
+
+
         return try {
-            songCollection.get().await().toObjects(Song::class.java)
+            songCollection
+                .get()
+                .await()
+                .toObjects(Song::class.java)
         } catch (e: Exception) {
             emptyList<Song>()
         }

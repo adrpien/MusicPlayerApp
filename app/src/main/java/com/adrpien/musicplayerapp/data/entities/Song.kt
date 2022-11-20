@@ -11,4 +11,14 @@ data class Song(
     val album: String,
     val subtitle: String,
     ){
+
+    constructor() : this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    )
 }
