@@ -60,7 +60,7 @@ class SongListFragment : Fragment() {
 
         setupRecyclerView()
         subscribeToObservers()
-        songListAdapter.setOnItemClickListener {
+        songListAdapter.setItemClickListener {
             mainViewModel.playOrToggleSong(it)
         }
     }

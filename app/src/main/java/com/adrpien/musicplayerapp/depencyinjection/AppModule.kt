@@ -2,6 +2,7 @@ package com.adrpien.musicplayerapp.depencyinjection
 
 import android.content.Context
 import com.adrpien.musicplayerapp.R
+import com.adrpien.musicplayerapp.adapters.SongViewPagerAdapter
 import com.adrpien.musicplayerapp.exoplayer.MusicServiceConnection
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,6 +18,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideSongViewPagerAdapter() = SongViewPagerAdapter()
 
     @Singleton
     @Provides

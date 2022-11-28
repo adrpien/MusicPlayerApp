@@ -15,9 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import javax.inject.Inject
 
-class SongViewPagerAdapter (
-    layoutId: Int
-        ): BaseSongAdapter(layoutId) {
+class SongViewPagerAdapter (): BaseSongAdapter(R.layout.song_view_pager_row){
 
     override val differ: AsyncListDiffer<Song> = AsyncListDiffer(this, diffCallback)
 

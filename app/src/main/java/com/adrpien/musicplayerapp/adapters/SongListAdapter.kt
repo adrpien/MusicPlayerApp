@@ -16,11 +16,8 @@ import com.bumptech.glide.RequestManager
 import javax.inject.Inject
 
 class SongListAdapter @Inject constructor (
-    private val layoutId: Int,
-    private val glide: RequestManager): BaseSongAdapter(layoutId){
+    private val glide: RequestManager): BaseSongAdapter(R.layout.song_list_row){
     override var differ: AsyncListDiffer<Song> = AsyncListDiffer(this, diffCallback)
-
-
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]

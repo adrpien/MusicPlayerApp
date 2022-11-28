@@ -19,7 +19,7 @@ import com.adrpien.musicplayerapp.other.Resource
 import com.adrpien.musicplayerapp.other.ResourceState
 
 // This class is used for exchanging information between activity or class and service
-class MusicServiceConnection(
+class  MusicServiceConnection(
     context: Context,
 ) {
 

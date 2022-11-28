@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
 
      val isConnected = musicServiceConnection.isConnected
      val networkError = musicServiceConnection.networkError
-     val currentlyPlayigSong = musicServiceConnection.currentlyPlayingSong
+     val currentlyPlayingSong = musicServiceConnection.currentlyPlayingSong
      val playbackState = musicServiceConnection.playbackState
 
      init {
@@ -52,13 +52,15 @@ class MainViewModel @Inject constructor(
           })
      }
 
-     // Function to control player
+     // Functions to control player
      fun skipToNextSong() = musicServiceConnection.transportControls.skipToNext()
      fun skipToPreviousSong() = musicServiceConnection.transportControls.skipToPrevious()
      fun seekTo(position: Long) = musicServiceConnection.transportControls.seekTo(position)
-     fun playOrToggleSong(song: Song, toggle: Boolean = false) {
+
+     // Pause if playing, play if paused and play new, if passed song is different than currently playing song
+     fun  playOrToggleSong(song: Song, toggle: Boolean = false) {
           val isPrepared = playbackState.value?.isPrepared ?: false
-          if (isPrepared && song.id == currentlyPlayigSong.value?.getString(METADATA_KEY_MEDIA_ID)){
+          if (isPrepared && song.id == currentlyPlayingSong.value?.getString(METADATA_KEY_MEDIA_ID)){
                playbackState.value?.let { playbackState ->
                     when {
                          playbackState.isPlaying -> if(toggle) musicServiceConnection.transportControls.pause()
@@ -66,6 +68,8 @@ class MainViewModel @Inject constructor(
                          else -> Unit
                     }
                }
+          } else {
+               musicServiceConnection.transportControls.playFromMediaId(song.id, null)
           }
      }
 
