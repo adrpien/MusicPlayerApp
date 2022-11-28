@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_layout"
     tools:context=".ui.activities.MainActivity">
 
     <fragment
@@ -28,12 +29,26 @@
         <ImageView
             android:id="@+id/songImageView"
             android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_height="match_parent"
+            tools:layout_conversion_absoluteHeight="50dp"
+            tools:layout_editor_absoluteY="632dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_conversion_absoluteWidth="50dp" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/songViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            tools:layout_conversion_absoluteHeight="50dp"
+            tools:layout_editor_absoluteY="632dp"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_conversion_absoluteWidth="362dp" />
+
+        <ImageButton
+            android:id="@+id/song_playback_state_button"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,22 +1,23 @@
 package com.adrpien.musicplayerapp.ui.activities
 
+import android.media.session.PlaybackState
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.adrpien.musicplayerapp.R
 import com.adrpien.musicplayerapp.adapters.SongViewPagerAdapter
 import com.adrpien.musicplayerapp.data.entities.Song
 import com.adrpien.musicplayerapp.databinding.ActivityMainBinding
+import com.adrpien.musicplayerapp.exoplayer.isPlaying
 import com.adrpien.musicplayerapp.exoplayer.toSong
-import com.adrpien.musicplayerapp.other.Resource
 import com.adrpien.musicplayerapp.other.ResourceState
 import com.adrpien.musicplayerapp.ui.viewmodels.MainViewModel
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     private var currentlyPlayingSong: Song?  = null
+    private var playbackState: PlaybackStateCompat? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +49,26 @@ class MainActivity : AppCompatActivity() {
         // Setting bottomNaviationMenu
         binding.bottomNavigationMenu.setupWithNavController(findNavController(R.id.fragmentContainerView))
 
-         binding.songViewPager.adapter = songViewPagerAdapter
+        binding.songViewPager.adapter = songViewPagerAdapter
+        binding.songViewPager.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+
+            // This function is triggered everytime the item changes
+            override fun onPageSelected(position: Int) {
+                if(playbackState?.isPlaying == true){
+                    mainViewModel.playOrToggleSong(songViewPagerAdapter.songs[position])
+                } else {
+                    currentlyPlayingSong = songViewPagerAdapter.songs[position]
+                }
+            }
+        })
 
         subscribeToObservers()
+
+        binding.songPlaybackStateButton.setOnClickListener { view ->
+            currentlyPlayingSong?.let {
+                mainViewModel.playOrToggleSong(it, true)
+            }
+        }
     }
 
 
@@ -89,6 +108,44 @@ class MainActivity : AppCompatActivity() {
             currentlyPlayingSong = it.toSong()
             glide.load(currentlyPlayingSong?.coverURL).into(binding.songImageView)
             updateViewPager((currentlyPlayingSong) ?: return@observe)
+        }
+        mainViewModel.playbackState.observe(this) {
+            playbackState = it
+                binding.songPlaybackStateButton.setImageResource(
+                    if(playbackState?.isPlaying == true) R.drawable.pause_button
+                    else R.drawable.play_button
+                )
+
+        }
+
+        mainViewModel.isConnected.observe(this) {
+            it?.getContentIfNotHandled()?.let { result ->
+                when(result.resourceState) {
+                    ResourceState.ERROR -> {
+                        Snackbar.make(
+                            binding.rootLayout,
+                            result.message ?: "Error occured",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        mainViewModel.networkError.observe(this) {
+            it?.getContentIfNotHandled()?.let { result ->
+                when(result.resourceState) {
+                    ResourceState.ERROR -> {
+                        Snackbar.make(
+                            binding.rootLayout,
+                            result.message ?: "Error occured",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> Unit
+                }
+            }
         }
     }
 }
