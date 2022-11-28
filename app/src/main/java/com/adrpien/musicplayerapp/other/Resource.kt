@@ -8,7 +8,7 @@ package com.adrpien.musicplayerapp.other
  */
 
 // We can wrap any data, in order to have access to this data from activities and fragments
-// Class for error handling
+// Class for error and loading handling
 // Example: Wrapped around list of songs
 data class Resource <out T>(
     val resourceState: ResourceState,
@@ -29,6 +29,8 @@ data class Resource <out T>(
 
 }
 
+// Class which describes statuses our resource can have
+// Status loading is to show progress bar, when our resource is not ready
 enum class ResourceState {
     ERROR,
     SUCCESS ,

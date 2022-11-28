@@ -15,28 +15,27 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import javax.inject.Inject
 
-class SongListAdapter @Inject constructor (
-    private val layoutId: Int,
-    private val glide: RequestManager): BaseSongAdapter(layoutId){
-    override var differ: AsyncListDiffer<Song> = AsyncListDiffer(this, diffCallback)
+class SongViewPagerAdapter (
+    layoutId: Int
+        ): BaseSongAdapter(layoutId) {
 
+    override val differ: AsyncListDiffer<Song> = AsyncListDiffer(this, diffCallback)
 
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            val playerIconImageView = findViewById<ImageView>(R.id.songRowImageView)
-            val playerTitleTextView = findViewById<TextView>(R.id.songRowTitleTextView)
-            val playerArtistTextView = findViewById<TextView>(R.id.songRowArtistTextView)
+            val playerArtistTextView = findViewById<TextView>(R.id.songPagerRowArtistTextView)
+            val playerTitleTextView = findViewById<TextView>(R.id.songPagerRowTitleTextView)
             playerTitleTextView.text = song.title
             playerArtistTextView.text = song.artist
-            glide.load(song.coverURL).into(playerIconImageView)
 
-            setOnClickListener {
-                onItemClickListener?.let { click ->
-                    click(song)
+            setItemClickListener {
+                onItemClickListener?.let { listener ->
+                    listener(song)
                 }
             }
         }
     }
 }
+

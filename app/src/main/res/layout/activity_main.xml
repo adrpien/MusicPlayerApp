@@ -15,8 +15,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationMenu"
+        app:layout_constraintBottom_toTopOf="@id/songViewPager"
         app:navGraph="@navigation/nav_graph"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/songViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationMenu" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationMenu"

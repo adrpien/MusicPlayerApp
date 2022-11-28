@@ -2,7 +2,8 @@ package com.adrpien.musicplayerapp.other
 
 
 
-// Event class prevent specific events happen multiple times
+// Event class prevent specific events happen multiple times f.e. SnackBars
+// When we rotate our device, livedata will emit again
 open class Event<out T> (private val data: T) {
 
     var hasBeenHandled = false
