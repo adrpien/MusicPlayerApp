@@ -9,4 +9,5 @@ object Constants {
     const val MUSIC_NOTIFICATION = "music_notification"
     const val MEDIA_ROOT_ID = "root_id"
     const val NETWORK_ERROR = "network_error "
+    const val UPDATE_SONG_CURRENT_MILLISECOND_INTERVAL = 100L
 }

@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2.INVISIBLE
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.adrpien.musicplayerapp.R
 import com.adrpien.musicplayerapp.adapters.SongViewPagerAdapter
@@ -49,6 +53,28 @@ class MainActivity : AppCompatActivity() {
         // Setting bottomNaviationMenu
         binding.bottomNavigationMenu.setupWithNavController(findNavController(R.id.fragmentContainerView))
 
+        // Trigger this lambda when NacController changes its destination
+        findNavController(R.id.fragmentContainerView).addOnDestinationChangedListener(object: NavController.OnDestinationChangedListener {
+            override fun onDestinationChanged(
+                controller: NavController,
+                destination: NavDestination,
+                arguments: Bundle?
+            ) {
+                when(destination.id) {
+                    R.id.playerFragment -> {
+                     hideSongBarLayout()
+                    }
+                    R.id.songListFragment -> {
+                        showSongBarLayout()
+                    }
+                    R.id.homeFragment -> {
+                        showSongBarLayout()
+                    }
+                    else -> Unit
+                }
+            }
+        })
+
         binding.songViewPager.adapter = songViewPagerAdapter
         binding.songViewPager.registerOnPageChangeCallback(object: OnPageChangeCallback() {
 
@@ -61,8 +87,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        songViewPagerAdapter.setItemClickListener { song ->
+            findNavController(R.id.fragmentContainerView).navigate(R.id.globalActionToPlayerFragment)
+        }
+
 
         subscribeToObservers()
+
 
         binding.songPlaybackStateButton.setOnClickListener { view ->
             currentlyPlayingSong?.let {
@@ -71,6 +102,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    // Function to hide songBarLayout
+    private fun hideSongBarLayout(){
+        binding.songBarLayout.isVisible = false
+    }
+
+    // Function to sho w  songBarLayout
+    private fun showSongBarLayout(){
+        binding.songBarLayout.isVisible = true
+    }
 
     // Function which switches View Pager to current song
     private fun updateViewPager(song: Song){

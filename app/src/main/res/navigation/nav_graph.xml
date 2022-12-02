@@ -20,4 +20,12 @@
         android:name="com.adrpien.musicplayerapp.ui.fragments.SongListFragment"
         android:label="fragment_song_list"
         tools:layout="@layout/fragment_song_list" />
+
+
+<!--    Action for global actions -->
+    <action
+        android:id="@+id/globalActionToPlayerFragment"
+        app:destination="@id/playerFragment" />
+
+
 </navigation>
