@@ -54,6 +54,7 @@ abstract class BaseSongAdapter(
         return  songs.size
     }
 
+    // I think it would be better to use interface instead
     protected var onItemClickListener: ((Song) -> Unit)? = null
 
     fun setItemClickListener(listener: (Song) -> Unit){

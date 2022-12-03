@@ -57,6 +57,8 @@ class MusicNotificationManager(
 
         // Return title of current song
         override fun getCurrentContentTitle(player: Player): CharSequence {
+
+            newSongCallback
         return mediaController.metadata.description.title.toString() // MediaMetaDataCompat is metadata type
         }
 

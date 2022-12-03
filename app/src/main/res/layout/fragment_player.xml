@@ -40,12 +40,12 @@
 
     <SeekBar
         android:id="@+id/playerSongTimeSeekBar"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="20dp"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playerArtistTextView" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -66,7 +66,7 @@
             android:contentDescription="player_previous_button"/>
 
         <ImageButton
-            android:id="@+id/playerPlayButton"
+            android:id="@+id/playerPlayPauseButton"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@drawable/player_play_button"
@@ -83,19 +83,20 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/playerSongTimeSeekBar"
-        app:layout_constraintStart_toStartOf="@+id/playerSongTimeSeekBar" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/playerSongCurrentTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00"
-         />
+        app:layout_constraintRight_toLeftOf="@id/playerSongTimeSeekBar"
+        app:layout_constraintTop_toTopOf="@id/playerSongTimeSeekBar" />
+
+    <TextView
+        android:id="@+id/playerSongDurationTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        app:layout_constraintLeft_toRightOf="@id/playerSongTimeSeekBar"
+        app:layout_constraintTop_toTopOf="@id/playerSongTimeSeekBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
