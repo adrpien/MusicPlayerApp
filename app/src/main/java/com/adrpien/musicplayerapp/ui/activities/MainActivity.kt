@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //hiding SupportActionBar
+        supportActionBar?.hide()
+
         // Setting bottomNaviationMenu
         binding.bottomNavigationMenu.setupWithNavController(findNavController(R.id.fragmentContainerView))
 
@@ -64,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.playerFragment -> {
                      hideSongBarLayout()
                     }
-                    R.id.songListFragment -> {
+                    R.id.playlistFragment -> {
                         showSongBarLayout()
                     }
                     R.id.homeFragment -> {
@@ -74,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
 
         binding.songViewPager.adapter = songViewPagerAdapter
         binding.songViewPager.registerOnPageChangeCallback(object: OnPageChangeCallback() {

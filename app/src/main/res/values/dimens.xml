@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="player_button_size">60dp</dimen>
+    <dimen name="card_width">100dp</dimen>
+    <dimen name="card_height">100dp</dimen>
 </resources>

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="homeFragment"
-        android:id="@+id/homeFragment"/>
-    <item android:title="playerFragment"
-        android:id="@+id/playerFragment"/>
-    <item android:title="songListFragment"
-        android:id="@+id/songListFragment"/>
+    <item android:title="Home"
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_icon"/>
+    <item android:title="Music"
+        android:id="@+id/playerFragment"
+        android:icon="@drawable/music_icon"/>
+    <item android:title="Playlist"
+        android:id="@+id/playlistFragment"
+        android:icon="@drawable/playlist_icon"/>
 </menu>

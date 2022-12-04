@@ -16,7 +16,7 @@
         android:label="fragment_player"
         tools:layout="@layout/fragment_player" />
     <fragment
-        android:id="@+id/songListFragment"
+        android:id="@+id/playlistFragment"
         android:name="com.adrpien.musicplayerapp.ui.fragments.SongListFragment"
         android:label="fragment_song_list"
         tools:layout="@layout/fragment_song_list" />

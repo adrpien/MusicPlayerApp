@@ -96,7 +96,7 @@ class PlayerFragment : Fragment() {
 
                 // When seekbar is dragged change the playerSongCurrentTimeTextView, do not change current song time
                 if (fromUser) {
-                    convertSongMomentToString(position.toLong())
+                    binding.playerSongCurrentTimeTextView.text = convertSongMomentToString(position.toLong())
                 }
             }
 
@@ -170,7 +170,7 @@ class PlayerFragment : Fragment() {
         playerViewModel.songCurrentMillisecond.observe(viewLifecycleOwner) {
             binding.playerSongTimeSeekBar.progress = it.toInt()
             if(shouldUpdateSeekbar) {
-                binding.playerSongCurrentTimeTextView.text == convertSongMomentToString(it)
+                binding.playerSongCurrentTimeTextView.text = convertSongMomentToString(it)
             }
         }
 

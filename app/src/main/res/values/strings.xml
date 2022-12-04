@@ -12,7 +12,7 @@
     <string name="play_intent_extra_id">play_intent_extra_id</string>
     <string name="back_intent_extra_id">back_intent_extra_id</string>
     <string name="next_intent_extra_id">next_intent_extra_id</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Hello">Hello :)</string>
     <string name="play">Play</string>
     <string name="play_action">play_action</string>
     <string name="back">back</string>
@@ -24,5 +24,6 @@
     <string name="music_notification_channel_id">1</string>
     <string name="notification_channel_description">shows_currently_playing_music</string>
     <string name="music_notification_channel">music_notification_channel</string>
+    <string name="playlist_name">Playlist name</string>
 
 </resources>

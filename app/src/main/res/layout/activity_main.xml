@@ -30,25 +30,21 @@
             android:id="@+id/songImageView"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            tools:layout_conversion_absoluteHeight="50dp"
-            tools:layout_editor_absoluteY="632dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_conversion_absoluteWidth="50dp" />
+            android:layout_weight="0"
+            />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/songViewPager"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_conversion_absoluteHeight="50dp"
-            tools:layout_editor_absoluteY="632dp"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_conversion_absoluteWidth="362dp" />
+            android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/song_playback_state_button"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_gravity="right" />
+            android:layout_weight="0"
+            android:background="@null"/>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
